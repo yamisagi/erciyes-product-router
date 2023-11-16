@@ -1,7 +1,12 @@
+import ProductDataContextProvider from './context/ProductDataContext';
 import AppRouter from './router/AppRouter';
 
 function App() {
-  return <AppRouter />;
+  return (
+    <ProductDataContextProvider>
+      <AppRouter />;
+    </ProductDataContextProvider>
+  );
 }
 
 export default App;

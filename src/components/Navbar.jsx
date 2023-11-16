@@ -1,14 +1,13 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { Fragment } from 'react';
-import { Disclosure, Menu, Transition } from '@headlessui/react';
+import { Link, useNavigate } from 'react-router-dom';
+import { Disclosure } from '@headlessui/react';
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline';
 
-function classNames(...classes) {
-  return classes.filter(Boolean).join(' ');
-}
 const Navbar = () => {
-  // Home page & Product Detail page
+  const navigate = useNavigate();
+  const handleDefaultDetail = () => {
+    navigate('/details/1');
+  };
 
   return (
     <Disclosure as='nav' className='bg-gray-800'>
@@ -43,10 +42,10 @@ const Navbar = () => {
                       Home
                     </Link>
                     <Link
-                      to='/detail'
+                      to='/detail/1'
                       className='text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium'
                     >
-                      Product Detail
+                      Product Details
                     </Link>
                   </div>
                 </div>
@@ -66,7 +65,7 @@ const Navbar = () => {
                 </div>
               </Link>
               <Link
-                to='/detail'
+                to='/detail/1'
                 className='text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium'
               >
                 <div className='text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium'>
