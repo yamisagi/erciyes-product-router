@@ -4,9 +4,12 @@ export const ProductDataContext = createContext();
 
 const ProductDataContextProvider = ({ children }) => {
   const [products, setProducts] = useState([]);
+  const [selectedId, setSelectedId] = useState(null);
 
   return (
-    <ProductDataContext.Provider value={{ products, setProducts }}>
+    <ProductDataContext.Provider
+      value={{ products, setProducts, selectedId, setSelectedId }}
+    >
       {children}
     </ProductDataContext.Provider>
   );

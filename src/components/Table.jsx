@@ -4,7 +4,7 @@ import { getProducts } from '../service/productService';
 import { useProductData } from '../context/ProductDataContext';
 
 const Table = () => {
-  const { products, setProducts } = useProductData();
+  const { products, setProducts, setSelectedId } = useProductData();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
 
@@ -12,6 +12,7 @@ const Table = () => {
     const getData = async () => {
       try {
         const response = await getProducts();
+        response.sort((a, b) => a.id - b.id);
         setProducts(response);
         setLoading(false);
       } catch (error) {
@@ -22,7 +23,9 @@ const Table = () => {
       }
     };
     getData();
-
+    // Eğer setProducts fonksiyonunu dependency array içerisine eklersek sonsuz döngüye gireriz.
+    // Çünkü setProducts fonksiyonu her render olduğunda değişecektir. Her ne kadar içerik aynı olsa da fonksiyonun referansı değişecektir :)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -70,11 +73,12 @@ const Table = () => {
                     </td>
                   </tr>
                 ) : (
-                    products?.map((product) => (
+                  products?.map((product) => (
                     <tr key={product.id}>
                       <td className='px-2 sm:px-6 py-2 sm:py-4 whitespace-nowrap'>
                         <Link
                           to={`/detail/${product.id}`}
+                          onClick={() => setSelectedId(product.id)}
                           className='text-indigo-700 hover:text-indigo-900'
                         >
                           {product.id}

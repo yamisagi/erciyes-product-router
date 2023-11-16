@@ -7,6 +7,7 @@ import { useProductData } from '../context/ProductDataContext';
 
 const AppRouter = () => {
   const { products } = useProductData();
+  
   return (
     <>
       <Navbar />

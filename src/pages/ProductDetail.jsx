@@ -1,39 +1,67 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 
-
-const ProductDetail = ({product}) => {
+const ProductDetail = ({ product }) => {
+  console.log(product);
   const { id } = useParams();
   const navigate = useNavigate();
-
-  if (!id) {
-    navigate('/');
-    return null;
-  }
+  
+  useEffect(() => {
+    if (product.length === 0) {
+      navigate('/');
+      return;
+    }
+  }, [product, navigate]);
+  const currentProduct = product.find((product) => product.id === Number(id));
 
   return (
-    <div className="container mx-auto mt-8">
-    <div className="flex flex-col md:flex-row items-center">
-      <div className="md:w-1/2">
-        <img src={`https://placekitten.com/400/300`} alt={product.name} className="w-full h-auto" />
-      </div>
-      <div className="md:w-1/2 md:ml-8 mt-4 md:mt-0">
-        <h1 className="text-3xl font-bold">{product.name}</h1>
-        <p className="text-gray-600 mt-2">ID: {product.id}</p>
-        <p className="text-gray-600 mt-2">Category ID: {product.categoryId}</p>
-        <p className="text-gray-600 mt-2">Supplier ID: {product.supplierId}</p>
-        <p className="text-gray-600 mt-2">Quantity Per Unit: {product.quantityPerUnit}</p>
-        <p className="text-gray-600 mt-2">Unit Price: ${product.unitPrice.toFixed(2)}</p>
-        <p className="text-gray-600 mt-2">Units in Stock: {product.unitsInStock}</p>
-        <p className="text-gray-600 mt-2">Units on Order: {product.unitsOnOrder}</p>
-        <p className="text-gray-600 mt-2">Reorder Level: {product.reorderLevel}</p>
-        <p className={`text-${product.discontinued ? 'red' : 'green'}-600 mt-2`}>
-          {product.discontinued ? 'Discontinued' : 'Available'}
-        </p>
-        {/* Diğer içerikler */}
+    <div className='container mx-auto mt-8 p-6 text-center bg-gray-100 rounded-lg shadow-md'>
+      <div className='flex flex-col items-center'>
+        <div className='md:w-1/2 md:ml-8 mt-4 md:mt-0'>
+          <h1 className='text-4xl font-bold text-indigo-700 mb-2'>
+            {currentProduct?.name}
+          </h1>
+          <p className='text-gray-600 mb-2'>
+            <span className='font-semibold'>ID:</span> {currentProduct?.id}
+          </p>
+          <p className='text-gray-600 mb-2'>
+            <span className='font-semibold'>Category ID:</span>{' '}
+            {currentProduct?.categoryId}
+          </p>
+          <p className='text-gray-600 mb-2'>
+            <span className='font-semibold'>Supplier ID:</span>{' '}
+            {currentProduct?.supplierId}
+          </p>
+          <p className='text-gray-600 mb-2'>
+            <span className='font-semibold'>Quantity Per Unit:</span>{' '}
+            {currentProduct?.quantityPerUnit}
+          </p>
+          <p className='text-gray-600 mb-2'>
+            <span className='font-semibold'>Unit Price:</span> $
+            {currentProduct?.unitPrice?.toFixed(2)}
+          </p>
+          <p className='text-gray-600 mb-2'>
+            <span className='font-semibold'>Units in Stock:</span>{' '}
+            {currentProduct?.unitsInStock}
+          </p>
+          <p className='text-gray-600 mb-2'>
+            <span className='font-semibold'>Units on Order:</span>{' '}
+            {currentProduct?.unitsOnOrder}
+          </p>
+          <p className='text-gray-600 mb-2'>
+            <span className='font-semibold'>Reorder Level:</span>{' '}
+            {currentProduct?.reorderLevel}
+          </p>
+          <p
+            className={`text-${
+              currentProduct?.discontinued ? 'red' : 'green'
+            }-600 font-semibold mt-2`}
+          >
+            {currentProduct?.discontinued ? 'Discontinued' : 'Available'}
+          </p>
+        </div>
       </div>
     </div>
-  </div>
   );
 };
 
