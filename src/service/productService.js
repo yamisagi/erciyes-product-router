@@ -9,13 +9,3 @@ export const getProducts = async () => {
     console.log(error);
   }
 };
-
-export const getProduct = async (id) => {
-  try {
-    const response = await fetch(`${BASE_URL}/${id}`);
-    const product = await response.json();
-    return product;
-  } catch (error) {
-    console.log(error);
-  }
-};
