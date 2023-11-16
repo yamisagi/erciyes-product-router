@@ -5,13 +5,16 @@ const ProductDetail = ({ product }) => {
   console.log(product);
   const { id } = useParams();
   const navigate = useNavigate();
-  
+  console.log(id);
+
   useEffect(() => {
-    if (product.length === 0) {
+    if (product.length === 0 || id == 'null') {
+      // string olarak yazmamızın sebebi useParams hook'unun id'yi string olarak döndürmesi
       navigate('/');
       return;
     }
-  }, [product, navigate]);
+  }, [product, navigate, id]);
+
   const currentProduct = product.find((product) => product.id === Number(id));
 
   return (
