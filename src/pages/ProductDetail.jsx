@@ -1,21 +1,23 @@
 import React, { useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-
-const ProductDetail = ({ product }) => {
-  console.log(product);
+import { useProductData } from '../context/ProductDataContext';
+const ProductDetail = () => {
+  const { products } = useProductData();
+  
+  console.log(products);
   const { id } = useParams();
   const navigate = useNavigate();
   console.log(id);
 
   useEffect(() => {
-    if (product.length === 0 || id == 'null') {
+    if (products.length === 0 || id == 'null') {
       // string olarak yazmamızın sebebi useParams hook'unun id'yi string olarak döndürmesi
       navigate('/');
       return;
     }
-  }, [product, navigate, id]);
+  }, [products, navigate, id]);
 
-  const currentProduct = product.find((product) => product.id === Number(id));
+  const currentProduct = products.find((product) => product.id === Number(id));
 
   return (
     <div className='container mx-auto mt-8 p-6 text-center bg-gray-100 rounded-lg shadow-md'>
